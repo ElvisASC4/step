@@ -48,3 +48,12 @@ li a {
     display: flex;
     justify-content: space-evenly;
 }
+
+#boo-text{
+    font-size: 150px;
+    color: red;
+    text-shadow: 3px 3px black;
+    position: absolute;
+    top: 50px;
+    right: 400px;
+}
