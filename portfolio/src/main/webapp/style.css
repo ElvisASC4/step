@@ -3,11 +3,11 @@ body{
 }
 
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.5);
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .logo{
@@ -29,15 +29,19 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-
+.containerText{
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 850px;
-  background-color: white;
-  padding: 50px;
-  border: 1.5px solid red;
-  border-radius: 5px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px;
+    background-image: url("/images/vacation.jpg");
+    padding: 50px;
+    border: 1.5px solid black;
+    border-radius: 5px;
 }
 
 #greeting-container {
