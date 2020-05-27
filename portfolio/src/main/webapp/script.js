@@ -16,16 +16,23 @@
  * Adds a random greeting to the page.
  */
 function addRandomGreeting() {
-  const greetings =
-      ["Hello, you look cute today. Lets be cute together!", "¡Hola Mundo! Soy Dominicano", "你好，世界！<3 ", "Bonjour le monde! Je t'aime "];
+    const greetings =
+        ["Hello, you look cute today. Lets be cute together!", "¡Hola Mundo! Soy Dominicano", "你好，世界！<3 ", "Bonjour le monde! Je t'aime "];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+    // Pick a random greeting.
+    const greeting = greetings[Math.floor(Math.random() * greetings.length)];
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+    // Add it to the page.
+    const greetingContainer = document.getElementById('greeting-container');
+    greetingContainer.innerText = greeting;
 
-  const booText = document.getElementById('boo-text');
-  booText.innerText = "Boo! ;)";
+    const booText = document.getElementById('boo-text');
+    booText.innerText = "Boo! ;)";
+
+    //const element = document.querySelector('.my-element');
+    booText.classList.add('animate__animated', 'animate__tada');
+
+    const ghostImage1 = document.getElementById("ghost-image-one").src = "https://thumbs.gfycat.com/AbleAngelicAphid-size_restricted.gif";
+    const ghostImage2 = document.getElementById("ghost-image-two").src = "https://i.ya-webdesign.com/images/ghost-gif-png.gif";
+
 }
