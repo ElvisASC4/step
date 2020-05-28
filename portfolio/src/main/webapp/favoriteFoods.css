@@ -1,0 +1,58 @@
+
+
+.food-container {
+    margin-top: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.columns {
+    width:20%; 
+    height:100%;
+    float:left; 
+    position:absolute; 
+    -moz-transition:all 0.5s linear;
+    border: 0.5px solid black;
+    border-radius: 5px;
+}
+
+.columns:hover {
+    width:50%;   
+    overflow:visible; 
+    z-index:1;
+}
+
+.col1 {
+    background-image: url(/images/cachapa.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition-duration: 2s; 
+}
+.col2 {
+    background-image: url(/images/mangu.jpg); left:20%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition-duration: 2s; 
+}
+.col3 {
+    background-image: url(/images/pizza.jpg); left:40%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition-duration: 2s; 
+}
+.col4 {
+    background-image: url(/images/mango.jpg); left:60%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition-duration: 2s; 
+}
+.col5 {
+    background-image: url(/images/passionFruit.jpg); left:80%;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition-duration: 2s; 
+
+}
+.col5:hover {
+    left:50%;
+}
