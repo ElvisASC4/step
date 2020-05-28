@@ -28,11 +28,29 @@ function addRandomGreeting() {
 
     const booText = document.getElementById('boo-text');
     booText.innerText = "Boo! ;)";
-
-    //const element = document.querySelector('.my-element');
     booText.classList.add('animate__animated', 'animate__tada');
 
     const ghostImage1 = document.getElementById("ghost-image-one").src = "https://thumbs.gfycat.com/AbleAngelicAphid-size_restricted.gif";
     const ghostImage2 = document.getElementById("ghost-image-two").src = "https://i.ya-webdesign.com/images/ghost-gif-png.gif";
 
+    const sacredText = document.getElementById("scaredText");
+    scaredText.innerHTML = "Sorry... did I " + "<strong>scare</strong>".italics() + " you?";
+
+    const answerButtons = document.getElementById('yes-no-buttons');
+    answerButtons.innerHTML = "<button class='buttonStyle pure-button yes-no-buttons-style' onclick='apologizeAndGiveRose()'> YES! How could you? </button> <button class='buttonStyle pure-button yes-no-buttons-style' onclick='tryHarderAndGiveDaisy()'> NO! I thought you loved me...</button>";
+}
+
+function apologizeAndGiveRose(){
+
+    const apologyText = document.getElementById("apology-text");
+    apologyText.innerText = "I apologize... Here is a rose";
+    const roseImage = document.getElementById("flower-image").src = "https://media.giphy.com/media/1ajPOWvok41qDSIuBy/giphy.gif";
+
+}
+
+function tryHarderAndGiveDaisy(){
+
+    const apologyText = document.getElementById("apology-text");
+    apologyText.innerText = "I'll try harder next time... Here is a Daisy";
+    const DaisyImage = document.getElementById("flower-image").src = "https://webstockreview.net/images/daisy-clipart-flower-gif-2.gif";
 }
