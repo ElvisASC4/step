@@ -56,3 +56,15 @@
 .col5:hover {
     left:50%;
 }
+.col4:hover {
+    left:30%;
+}
+
+.expand-column-content {
+    text-align: center;
+}
+
+.container-text{
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}
