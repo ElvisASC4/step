@@ -1,4 +1,4 @@
-body{
+body {
     background-image: url("/images/hearts.jpg");
 }
 
@@ -10,15 +10,15 @@ ul {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.logo{
+.logo {
   float: left;
 }
 
-#lastListItem{
+#lastListItem {
   margin-right: 170px;
 }
 
-.right{
+.right {
   float: right;
 }
 
@@ -29,7 +29,7 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
 }
-.containerText{
+.containerText {
     background: rgba(255, 255, 255, 0.8);
     padding: 20px;
 }
@@ -53,7 +53,7 @@ li a {
     justify-content: space-evenly;
 }
 
-#boo-text{
+#boo-text {
     font-size: 150px;
     color: red;
     text-shadow: 3px 3px black;
@@ -62,27 +62,27 @@ li a {
     right: 400px;
 }
 
-#ghost-image-one{
+#ghost-image-one {
     position: absolute;
     left: -30px;
     top: 200px;
 }
 
-#ghost-image-two{
+#ghost-image-two {
     position: absolute;
     right: 30px;
     top: 300px;
 }
 
-.buttonStyle{
+.buttonStyle {
     width: 400px;
     background-color: lightcoral !important;
 }
 
-.yes-no-buttons-style{
+.yes-no-buttons-style {
     margin-top: 5px;
 }
 
-#flower-image{
+#flower-image {
     position: absolute;
 }
