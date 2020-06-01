@@ -1,18 +1,55 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="UTF-8">
     <title>My Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
   </head>
+
   <body>
+
+    <ul>
+        <li><a class="active logo" href="/">Not a Bachelors finalist</a></li>
+        <li><a href="https://github.com/ElvisASC4"  id="lastListItem" class="right">Github</a></li>
+        <li><a href="https://www.linkedin.com/in/elvis-vasquez-382333147"  class="right">Linkedin</a></li>
+        <li><a href="favoriteFoods.html" class="right">Favorite Foods</a></li>
+        <li><a href="biography.html"  class="right">Biography</a></li>
+    </ul>
+
+
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+        <div class="container">
+            <div class="item containerText">
+                <h1>Elvis Vasquez</h1>
+                <hr>
+                <p>This is my portfolio.</p>
+                <button class="button-style pure-button" onclick="addRandomGreeting()">Click here to get a flirty greeting</button>
+                <div id="greeting-container"></div>
+                <p>
+                    I am a student at the University of Rochester currently interning for Google.
+                    My mission is to help diversify the tech industry by providing easy access to web develoment for small community based businesses and artists.
+                </p>
+                <div id="scaredText"></div>
+                <div id="yes-no-buttons"></div>
+                <div id="apology-text"></div>
+            </div>
+            <img class="item" src="/images/Elvis.jpg" width="400" height="500">
+        </div>
+
+        <div id="boo-text"></div>
+        <div>
+            <img class="" id="ghost-image-one" src="">
+        </div>
+        <div >
+            <img class="" id="ghost-image-two" src="">
+        </div>
+        <div id="flower-image-container">
+            <img class="" id="flower-image" src="">
+        </div>
     </div>
   </body>
 </html>

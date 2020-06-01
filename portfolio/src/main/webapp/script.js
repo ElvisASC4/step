@@ -16,13 +16,50 @@
  * Adds a random greeting to the page.
  */
 function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+    const greetings =
+        ["Hello, you look cute today. Lets be cute together!", "¡Hola Mundo! Soy Dominicano", "你好，世界！<3 ", "Bonjour le monde! Je t'aime "];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+    // Pick a random greeting.
+    const greeting = greetings[Math.floor(Math.random() * greetings.length)];
 
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+    // Add it to the page.
+    const greetingContainer = document.getElementById('greeting-container');
+    greetingContainer.innerText = greeting;
+
+    scareUser();
+    askIfScared();
+    
+}
+
+function askIfScared() {
+    const scaredText = document.getElementById("scaredText");
+    scaredText.innerHTML = `Sorry... did I ${'scare'.bold().italics()} you?`;
+
+    const answerButtons = document.getElementById('yes-no-buttons');
+    answerButtons.innerHTML = "<button class='button-style pure-button yes-no-buttons-style' onclick='apologizeAndGiveRose()'> YES! How could you? </button> <button class='button-style pure-button yes-no-buttons-style' onclick='tryHarderAndGiveDaisy()'> NO! I thought you loved me...</button>";
+
+}
+
+function scareUser() {
+    const booText = document.getElementById('boo-text');
+    booText.innerText = "Boo! ;)";
+    booText.classList.add('animate__animated', 'animate__tada');
+
+    document.getElementById("ghost-image-one").src = "https://thumbs.gfycat.com/AbleAngelicAphid-size_restricted.gif";
+    document.getElementById("ghost-image-two").src = "https://i.ya-webdesign.com/images/ghost-gif-png.gif";
+
+}
+
+function apologizeAndGiveRose() {
+    const apologyText = document.getElementById("apology-text");
+    apologyText.innerText = "I apologize... Here is a rose";
+    document.getElementById("flower-image").src = "https://media.giphy.com/media/1ajPOWvok41qDSIuBy/giphy.gif";
+
+}
+
+function tryHarderAndGiveDaisy() {
+    const apologyText = document.getElementById("apology-text");
+    apologyText.innerText = "I'll try harder next time... Here is a Daisy";
+    document.getElementById("flower-image").src = "https://webstockreview.net/images/daisy-clipart-flower-gif-2.gif";
+
 }

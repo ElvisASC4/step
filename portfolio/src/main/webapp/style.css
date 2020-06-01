@@ -1,9 +1,88 @@
+body {
+    background-image: url("/images/hearts.jpg");
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  float: left;
+}
+
+#lastListItem {
+  margin-right: 170px;
+}
+
+.right {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.containerText {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}
 #content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px;
+    background-image: url("/images/vacation.jpg");
+    padding: 50px;
+    border: 1.5px solid black;
+    border-radius: 5px;
 }
 
 #greeting-container {
   margin-top: 20px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#boo-text {
+    font-size: 150px;
+    color: red;
+    text-shadow: 3px 3px black;
+    position: absolute;
+    top: 50px;
+    right: 400px;
+}
+
+#ghost-image-one {
+    position: absolute;
+    left: -30px;
+    top: 200px;
+}
+
+#ghost-image-two {
+    position: absolute;
+    right: 30px;
+    top: 300px;
+}
+
+.container .item .button-style {
+    width: 400px;
+    background-color: lightcoral;
+}
+
+.yes-no-buttons-style {
+    margin-top: 5px;
+}
+
+#flower-image {
+    position: absolute;
 }

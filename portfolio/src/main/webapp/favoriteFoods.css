@@ -1,0 +1,96 @@
+body {
+    background-image: url("/images/hearts.jpg");
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+  float: left;
+}
+
+#lastListItem {
+  margin-right: 170px;
+}
+
+.right {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.food-container {
+    margin-top: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.columns {
+    width: 20%; 
+    height: 100%;
+    position: absolute; 
+    -moz-transition: all 0.5s linear;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    transition-duration: 2s; 
+}
+
+.columns:hover {
+    width: 50%;   
+    overflow: visible; 
+    z-index: 1;
+}
+
+.col1 {
+    background-image: url(/images/cachapa.jpg);
+}
+
+.col2 {
+    background-image: url(/images/mangu.jpg);
+    left: 20%;
+}
+
+.col3 {
+    background-image: url(/images/pizza.jpg); 
+    left: 40%;
+}
+
+.col4 {
+    background-image: url(/images/mango.jpg);
+    left: 60%;
+}
+
+.col5 {
+    background-image: url(/images/passionFruit.jpg); 
+    left: 80%;
+}
+
+.col5:hover {
+    left: 50%;
+}
+
+.col4:hover {
+    left: 30%;
+}
+
+.expand-column-content {
+    text-align: center;
+}
+
+.container-text {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+}
