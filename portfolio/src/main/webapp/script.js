@@ -67,19 +67,16 @@ function tryHarderAndGiveDaisy() {
 
 
 function getHelloFromButton() {
-  console.log('Fetching from servlet');
   const responsePromise = fetch('/data');
   responsePromise.then(handleResponse);
 }
 
 function handleResponse(response) {
-  console.log('Handling the response.');
   const textPromise = response.text();
   textPromise.then(addCutieToDom);
 }
 
 function addCutieToDom() {
-  console.log("Adding 'hi cutie' to dom: ");
   const cutieTextContainer = document.getElementById('cutie-text');
   cutieTextContainer.innerText = "Hi cutie";
 }
