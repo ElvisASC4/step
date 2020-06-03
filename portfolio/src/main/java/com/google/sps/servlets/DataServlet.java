@@ -15,18 +15,41 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
   @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Elvis!</h1>");
-  }
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String message;
+         
+        ArrayList<String> greetings = new ArrayList<String>();
+        greetings.add("Hey cutie, I like your hoodie. Dont lose the goodies");
+        greetings.add("Hey cutie, I like your hat. Careful with the bats");
+        greetings.add("Hey cutie, I like your anti-capitalist shirt, lets go take down the bourgeoisie");
+        
+        //message = greetings.get((int) (Math.random() * greetings.size()));
+        //Object messageObject = new Object();
+        String json = convertToJsonUsingGson(greetings);
+
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
+
+
+    }
+
+    private String convertToJsonUsingGson(ArrayList greetings) {
+        Gson gson = new Gson();
+        String json = gson.toJson(greetings);
+        return json;
+    }
 }

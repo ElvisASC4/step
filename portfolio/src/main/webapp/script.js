@@ -66,7 +66,8 @@ function tryHarderAndGiveDaisy() {
 
 async function getHelloFromButton() {
     const response = await fetch('/data');
-    const text = await response.text();
+    const text = await response.json();
+    const messageToDisplay = text[Math.floor(Math.random() * (text.length))];
     const cutieTextContainer = document.getElementById('cutie-text');
-    cutieTextContainer.innerText = text;
+    cutieTextContainer.innerText = messageToDisplay;
 }
