@@ -64,19 +64,9 @@ function tryHarderAndGiveDaisy() {
 
 }
 
-
-
-function getHelloFromButton() {
-  const responsePromise = fetch('/data');
-  responsePromise.then(handleResponse);
-}
-
-function handleResponse(response) {
-  const textPromise = response.text();
-  textPromise.then(addCutieToDom);
-}
-
-function addCutieToDom() {
-  const cutieTextContainer = document.getElementById('cutie-text');
-  cutieTextContainer.innerText = "Hi cutie";
+async function getHelloFromButton() {
+    const response = await fetch('/data');
+    const text = await response.text();
+    const cutieTextContainer = document.getElementById('cutie-text');
+    cutieTextContainer.innerText = text;
 }
