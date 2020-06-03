@@ -63,3 +63,10 @@ function tryHarderAndGiveDaisy() {
     document.getElementById("flower-image").src = "https://webstockreview.net/images/daisy-clipart-flower-gif-2.gif";
 
 }
+
+async function getHelloFromButton() {
+    const response = await fetch('/data');
+    const text = await response.text();
+    const cutieTextContainer = document.getElementById('cutie-text');
+    cutieTextContainer.innerText = text;
+}
