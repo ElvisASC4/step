@@ -37,7 +37,7 @@ public class DataServlet extends HttpServlet {
         greetings.add("Hey cutie, I like your hat. Careful with the bats");
         greetings.add("Hey cutie, I like your anti-capitalist shirt, lets go take down the bourgeoisie");
         
-        String json = convertToJsonUsingGson(greetings);
+        String json = convertToJson(greetings);
 
         response.setContentType("application/json;");
         response.getWriter().println(json);
