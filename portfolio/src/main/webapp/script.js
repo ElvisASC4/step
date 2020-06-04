@@ -66,7 +66,11 @@ function tryHarderAndGiveDaisy() {
 
 async function getHelloFromButton() {
     const response = await fetch('/data');
-    const text = await response.text();
-    const cutieTextContainer = document.getElementById('cutie-text');
-    cutieTextContainer.innerText = text;
+    const text = await response.json();
+    for (const currentText of text) {
+        const cutieTextContainer = document.getElementById('cutie-text');
+        const newText = document.createElement('p');
+        newText.innerHTML = currentText;
+        cutieTextContainer.appendChild(newText);
+    }
 }
