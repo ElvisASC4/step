@@ -69,7 +69,7 @@ async function getHelloFromButton() {
     const text = await response.json();
     for (const currentText of text) {
         const cutieTextContainer = document.getElementById('cutie-text');
-        let newText = document.createElement('p');
+        const newText = document.createElement('p');
         newText.innerHTML = currentText;
         cutieTextContainer.appendChild(newText);
     }
