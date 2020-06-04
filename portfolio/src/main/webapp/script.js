@@ -64,9 +64,10 @@ function tryHarderAndGiveDaisy() {
 
 }
 
-async function getHelloFromButton() {
+async function getComments() {
     const response = await fetch('/data');
     const text = await response.json();
+    console.log(text);
     for (const currentText of text) {
         const cutieTextContainer = document.getElementById('cutie-text');
         const newText = document.createElement('p');

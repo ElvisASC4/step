@@ -27,25 +27,39 @@ import java.util.ArrayList;
 /** Servlet that returns an Array of comments as JSON. TODO: modify this file to handle comments data from user input */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+    ArrayList<String> comments = new ArrayList<>();
 
   @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String message;
-         
-        ArrayList<String> greetings = new ArrayList<>();
-        greetings.add("Hey cutie, I like your hoodie. Dont lose the goodies");
-        greetings.add("Hey cutie, I like your hat. Careful with the bats");
-        greetings.add("Hey cutie, I like your anti-capitalist shirt, lets go take down the bourgeoisie");
-        
-        String json = convertToJson(greetings);
-
+        String json = convertToJson(comments);
         response.setContentType("application/json;");
         response.getWriter().println(json);
     }
 
-    private String convertToJson(ArrayList greetings) {
+    private String convertToJson(ArrayList comment) {
         Gson gson = new Gson();
-        String json = gson.toJson(greetings);
+        String json = gson.toJson(comment);
         return json;
     }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String text = getParameter(request, "text-input", "");
+        comments.add(text);
+
+        String json = convertToJson(comments);
+    
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
+
+        response.sendRedirect("/index.html");
+    }
+
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
 }
