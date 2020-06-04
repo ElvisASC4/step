@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns an Array of comments as JSON. TODO: modify this file to handle comments data from user input */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
@@ -32,22 +32,18 @@ public class DataServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String message;
          
-        ArrayList<String> greetings = new ArrayList<String>();
+        ArrayList<String> greetings = new ArrayList<>();
         greetings.add("Hey cutie, I like your hoodie. Dont lose the goodies");
         greetings.add("Hey cutie, I like your hat. Careful with the bats");
         greetings.add("Hey cutie, I like your anti-capitalist shirt, lets go take down the bourgeoisie");
         
-        //message = greetings.get((int) (Math.random() * greetings.size()));
-        //Object messageObject = new Object();
         String json = convertToJsonUsingGson(greetings);
 
         response.setContentType("application/json;");
         response.getWriter().println(json);
-
-
     }
 
-    private String convertToJsonUsingGson(ArrayList greetings) {
+    private String convertToJson(ArrayList greetings) {
         Gson gson = new Gson();
         String json = gson.toJson(greetings);
         return json;
