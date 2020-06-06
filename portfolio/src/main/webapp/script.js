@@ -64,7 +64,7 @@ function tryHarderAndGiveDaisy() {
 
 }
 
-async function getHelloFromButton() {
+async function getComments() {
     const response = await fetch('/data');
     const text = await response.json();
     for (const currentText of text) {

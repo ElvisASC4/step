@@ -21,31 +21,56 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import java.util.Optional;
 
 
 
 /** Servlet that returns an Array of comments as JSON. TODO: modify this file to handle comments data from user input */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+ArrayList<String> comments = new ArrayList<>();
+DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
 
   @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String message;
-         
-        ArrayList<String> greetings = new ArrayList<>();
-        greetings.add("Hey cutie, I like your hoodie. Dont lose the goodies");
-        greetings.add("Hey cutie, I like your hat. Careful with the bats");
-        greetings.add("Hey cutie, I like your anti-capitalist shirt, lets go take down the bourgeoisie");
-        
-        String json = convertToJson(greetings);
-
+        String json = convertToJson(comments);
         response.setContentType("application/json;");
         response.getWriter().println(json);
     }
 
-    private String convertToJson(ArrayList greetings) {
+    private String convertToJson(ArrayList comment) {
         Gson gson = new Gson();
-        String json = gson.toJson(greetings);
+        String json = gson.toJson(comment);
         return json;
     }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String text = getParameter(request, "text-input", "");
+        long timestamp = System.currentTimeMillis();
+
+        Entity taskEntity = new Entity("Task");
+        taskEntity.setProperty("text", text);
+        taskEntity.setProperty("timestamp", timestamp);
+
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        datastore.put(taskEntity);
+        
+        comments.add(text);
+
+        String json = convertToJson(comments);
+    
+        response.setContentType("application/json;");
+        response.getWriter().println(json);
+
+        response.sendRedirect("/index.html");
+    }
+
+    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+        return Optional.ofNullable(request.getParameter(name)).orElse(defaultValue);
+  }
 }

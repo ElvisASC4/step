@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
   </head>
 
-  <body>
+  <body onload="getComments()">
 
     <ul>
         <li><a class="active logo" href="/">Not a Bachelors finalist</a></li>
@@ -50,7 +50,11 @@
         <div id="flower-image-container">
             <img class="" id="flower-image" src="">
         </div>
-        <button onclick="getHelloFromButton()">Click me if you're a cutie!</button>
+        <form action="/data" method="POST">
+            <p>Leave me a comment if you're brave &#128121:</p>
+            <textarea name="text-input"></textarea>
+            <input type="submit" />
+        </form>
         <div id="cutie-text"></div>
     </div>
   </body>
