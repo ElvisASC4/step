@@ -24,13 +24,16 @@ import java.util.ArrayList;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import java.util.Optional;
 
 
 
 /** Servlet that returns an Array of comments as JSON. TODO: modify this file to handle comments data from user input */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-    ArrayList<String> comments = new ArrayList<>();
+ArrayList<String> comments = new ArrayList<>();
+DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
 
   @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -68,10 +71,6 @@ public class DataServlet extends HttpServlet {
     }
 
     private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
+        return Optional.ofNullable(request.getParameter(name)).orElse(defaultValue);
   }
 }
