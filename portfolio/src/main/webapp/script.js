@@ -65,10 +65,11 @@ function tryHarderAndGiveDaisy() {
 }
 
 async function getComments() {
+    document.getElementById('cutie-text').innerHTML = "";
+    const cutieTextContainer = document.getElementById('cutie-text');
     const response = await fetch('/data');
-    const text = await response.json();
+    const text = await response.json(); //JSON returns double array when page reloads need to debug  servlet doGet but it's late ;(
     for (const currentText of text) {
-        const cutieTextContainer = document.getElementById('cutie-text');
         const newText = document.createElement('p');
         newText.innerHTML = currentText;
         cutieTextContainer.appendChild(newText);

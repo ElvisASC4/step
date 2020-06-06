@@ -25,6 +25,10 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import java.util.Optional;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+
 
 
 
@@ -37,6 +41,19 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
   @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
+        int pageLoaded = 0;
+        PreparedQuery results = datastore.prepare(query);
+        for (Entity entity : results.asIterable()) {
+            long id = entity.getKey().getId();
+            String text = (String) entity.getProperty("text");
+            long timestamp = (long) entity.getProperty("timestamp");
+
+            comments.add(text);
+            
+        }
+        
+        
         String json = convertToJson(comments);
         response.setContentType("application/json;");
         response.getWriter().println(json);
@@ -57,7 +74,6 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         taskEntity.setProperty("text", text);
         taskEntity.setProperty("timestamp", timestamp);
 
-        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         datastore.put(taskEntity);
         
         comments.add(text);
