@@ -30,29 +30,21 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 
-
-
 /** Servlet that returns an Array of comments as JSON. TODO: modify this file to handle comments data from user input */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-ArrayList<String> comments = new ArrayList<>();
 DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
 
   @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        ArrayList<String> comments = new ArrayList<>();
         Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
-        int pageLoaded = 0;
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
-            long id = entity.getKey().getId();
             String text = (String) entity.getProperty("text");
-            long timestamp = (long) entity.getProperty("timestamp");
-
             comments.add(text);
-            
         }
-        
+
         
         String json = convertToJson(comments);
         response.setContentType("application/json;");
@@ -75,13 +67,6 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         taskEntity.setProperty("timestamp", timestamp);
 
         datastore.put(taskEntity);
-        
-        comments.add(text);
-
-        String json = convertToJson(comments);
-    
-        response.setContentType("application/json;");
-        response.getWriter().println(json);
 
         response.sendRedirect("/index.html");
     }
