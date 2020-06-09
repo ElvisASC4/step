@@ -65,6 +65,7 @@ function tryHarderAndGiveDaisy() {
 }
 
 async function getComments() {
+    fetchBlobstoreUrl();
     document.getElementById('cutie-text').innerHTML = "";
     const cutieTextContainer = document.getElementById('cutie-text');
     const response = await fetch('/data');
@@ -74,4 +75,15 @@ async function getComments() {
         newText.innerHTML = currentText;
         cutieTextContainer.appendChild(newText);
     }
+}
+
+function fetchBlobstoreUrl() {
+  fetch('/blobstore-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('my-form');
+        messageForm.action = imageUploadUrl;
+      });
 }
