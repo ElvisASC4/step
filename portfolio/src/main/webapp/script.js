@@ -72,12 +72,16 @@ async function getComments() {
     const text = await response.json();
     for (const currentText of text) {
         const newText = document.createElement('p');
-        newText.innerHTML = currentText;
+        const newImage = document.createElement('img');
+        newImage.src = `${currentText[1]}`;
+        newText.innerHTML = currentText[0];
         cutieTextContainer.appendChild(newText);
+        cutieTextContainer.appendChild(newImage);
+
     }
 }
 
-function fetchBlobstoreUrl() {
+function fetchBlobstoreUrl() {    
   fetch('/blobstore-upload-url')
       .then((response) => {
         return response.text();
