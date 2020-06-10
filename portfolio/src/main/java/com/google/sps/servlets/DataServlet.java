@@ -46,7 +46,6 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
   @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ArrayList<String[]>  messagesAndURLs = new ArrayList<>();
