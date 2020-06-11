@@ -46,16 +46,28 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-  @Override
+
+    public class Message {
+        private String comment;
+        private String imageUrl;
+
+        public Message(String comment, String imageUrl) {
+            this.comment = comment;
+            this.imageUrl = imageUrl;
+        }
+    }
+
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ArrayList<String[]>  messagesAndURLs = new ArrayList<>();
+        ArrayList<Message>  messagesAndURLs = new ArrayList<>();
         Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
         PreparedQuery results = datastore.prepare(query);
         for (Entity entity : results.asIterable()) {
             String text = (String) entity.getProperty("text");
             String imageUrl = (String) entity.getProperty("imageUrl");
+            Message newMessage = new Message(text, imageUrl);
 
-            messagesAndURLs.add( new String[]{text,imageUrl}  );
+            messagesAndURLs.add(newMessage);
         }
         
         String json = convertToJson(messagesAndURLs);
@@ -100,7 +112,7 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
         // User submitted form without selecting a file, so we can't get a URL. (dev server)
         if (blobKeys == null || blobKeys.isEmpty()) {
-        return null;
+            return null;
         }
 
         // Our form only contains a single file input, so get the first index.
@@ -109,8 +121,8 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         // User submitted form without selecting a file, so we can't get a URL. (live server)
         BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
         if (blobInfo.getSize() == 0) {
-        blobstoreService.delete(blobKey);
-        return null;
+            blobstoreService.delete(blobKey);
+            return null;
         }
 
         // We could check the validity of the file here, e.g. to make sure it's an image file
@@ -123,10 +135,10 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         // To support running in Google Cloud Shell with AppEngine's devserver, we must use the relative
         // path to the image, rather than the path returned by imagesService which contains a host.
         try {
-        URL url = new URL(imagesService.getServingUrl(options));
-        return url.getPath();
+            URL url = new URL(imagesService.getServingUrl(options));
+            return url.getPath();
         } catch (MalformedURLException e) {
-        return imagesService.getServingUrl(options);
+            return imagesService.getServingUrl(options);
         }
     }
 }

@@ -65,6 +65,7 @@ function tryHarderAndGiveDaisy() {
 }
 
 async function getComments() {
+    const email = checkLogIn();
     fetchBlobstoreUrl();
     document.getElementById('cutie-text').innerHTML = "";
     const cutieTextContainer = document.getElementById('cutie-text');
@@ -72,11 +73,13 @@ async function getComments() {
     const text = await response.json();
     for (const currentText of text) {
         const newText = document.createElement('p');
-        const newImage = document.createElement('img');
-        newImage.src = `${currentText[1]}`;
-        newText.innerHTML = currentText[0];
+        newText.innerHTML = currentText.comment;
         cutieTextContainer.appendChild(newText);
-        cutieTextContainer.appendChild(newImage);
+        if(currentText.imageUrl != null){
+            const newImage = new Image();
+            newImage.src = currentText.imageUrl;
+            cutieTextContainer.appendChild(newImage);
+        }
 
     }
 }
@@ -90,4 +93,16 @@ function fetchBlobstoreUrl() {
         const messageForm = document.getElementById('my-form');
         messageForm.action = imageUploadUrl;
       });
+}
+
+async function checkLogIn(){
+    const formContainer = document.getElementById('my-form');
+    formContainer.style.display = "none";
+    const response = await fetch('/LogInServlet');
+    const text = await response.text(); // Text is body tags with 404 errors
+    if(text != "null"){
+        formContainer.style.display = "block";
+    }
+
+    return text;
 }
