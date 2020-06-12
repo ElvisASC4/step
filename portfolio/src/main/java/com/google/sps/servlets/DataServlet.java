@@ -50,19 +50,6 @@ public class DataServlet extends HttpServlet {
 DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 UserService userService = UserServiceFactory.getUserService();
 
-
-    public class Message {
-        private String comment;
-        private String imageUrl;
-        private String email;
-
-        public Message(String comment, String imageUrl, String email) {
-            this.comment = comment;
-            this.imageUrl = imageUrl;
-            this.email = email;
-        }
-    }
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ArrayList<Message>  messagesAndURLs = new ArrayList<>();
