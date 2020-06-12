@@ -67,7 +67,6 @@ public class LogInServlet extends HttpServlet {
             String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
             System.out.println("<p>Hello " + userEmail + "!</p>");
-            System.out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
 
             LoggedInStatus loggedIn = new LoggedInStatus(true);
             loggedIn.setEmail(userEmail);
@@ -80,10 +79,6 @@ public class LogInServlet extends HttpServlet {
         } else {
             String urlToRedirectToAfterUserLogsIn = "/index.html";
             String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-
-            System.out.println("<p>Hello stranger.</p>");
-            System.out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
-
             LoggedInStatus loggedIn = new LoggedInStatus(false);
             loggedIn.setLoginUrl(loginUrl);
 

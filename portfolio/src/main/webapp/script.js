@@ -72,7 +72,11 @@ async function getComments() {
     const text = await response.json();
     for (const currentText of text) {
         const newText = document.createElement('p');
-        newText.innerHTML = currentText.comment;
+        if(currentText.email != null){
+            newText.innerHTML = currentText.email + " : " + currentText.comment;
+        }else{
+            newText.innerHTML = "Unknown : " + currentText.comment;
+        }
         cutieTextContainer.appendChild(newText);
         if(currentText.imageUrl != null){
             const newImage = new Image();
@@ -96,8 +100,7 @@ function fetchBlobstoreUrl() {
 
 async function checkLogIn(){
     const formContainer = document.getElementById('my-form');
-    const response = await fetch('/loggedIn');
-    const loggedInStatus = await response.json();
+    const loggedInStatus = await fetchUserInfo();
     if(loggedInStatus.loggedIn){
         formContainer.style.display = "block";
     }else{
@@ -105,9 +108,14 @@ async function checkLogIn(){
     }
 }
 
-async function goToLogInPage(){
+async function fetchUserInfo(){
     const response = await fetch('/loggedIn');
     const loggedInStatus = await response.json();
+    return loggedInStatus;
+}
+
+async function goToLogInPage(){
+    const loggedInStatus = await fetchUserInfo();
     if(loggedInStatus.loggedIn){
         location.replace(loggedInStatus.logoutUrl);
     } else{

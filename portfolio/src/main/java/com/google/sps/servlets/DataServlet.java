@@ -20,7 +20,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.RequestDispatcher;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,13 +48,15 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+UserService userService = UserServiceFactory.getUserService();
+
 
     public class Message {
         private String comment;
         private String imageUrl;
-        private String email = "Unkonwn";
+        private String email;
 
-        public Message(String comment, String imageUrl) {
+        public Message(String comment, String imageUrl, String email) {
             this.comment = comment;
             this.imageUrl = imageUrl;
             this.email = email;
@@ -68,10 +71,8 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
         for (Entity entity : results.asIterable()) {
             String text = (String) entity.getProperty("text");
             String imageUrl = (String) entity.getProperty("imageUrl");
-            Message newMessage = new Message(text, imageUrl);
-            // RequestDispatcher rd = request.getRequestDispatcher("LogInServlet"); 
-            // rd.forward(request, response);
-            //System.out.println(Message.email);
+            String email = (String) entity.getProperty("email");
+            Message newMessage = new Message(text, imageUrl, email);
             messagesAndURLs.add(newMessage);
         }
         
@@ -90,14 +91,15 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String text = request.getParameter("text-input");
         String imageUrl = getUploadedFileUrl(request, "image");
+        String email = userService.getCurrentUser().getEmail();
 
-        //String text = getParameter(request, "text-input", "");
         long timestamp = System.currentTimeMillis();
 
         Entity taskEntity = new Entity("Task");
         taskEntity.setProperty("text", text);
         taskEntity.setProperty("timestamp", timestamp);
         taskEntity.setProperty("imageUrl", imageUrl);
+        taskEntity.setProperty("email", email);
 
         datastore.put(taskEntity);
 
