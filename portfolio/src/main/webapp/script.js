@@ -65,7 +65,6 @@ function tryHarderAndGiveDaisy() {
 }
 
 async function getComments() {
-    const email = checkLogIn();
     fetchBlobstoreUrl();
     document.getElementById('cutie-text').innerHTML = "";
     const cutieTextContainer = document.getElementById('cutie-text');
@@ -97,12 +96,27 @@ function fetchBlobstoreUrl() {
 
 async function checkLogIn(){
     const formContainer = document.getElementById('my-form');
-    formContainer.style.display = "none";
-    const response = await fetch('/LogInServlet');
-    const text = await response.text(); // Text is body tags with 404 errors
-    if(text != "null"){
+    const response = await fetch('/loggedIn');
+    const loggedInStatus = await response.json();
+    if(loggedInStatus.loggedIn){
         formContainer.style.display = "block";
+    }else{
+        formContainer.style.display = "none";
+    }
+}
+
+async function goToLogInPage(){
+    const response = await fetch('/loggedIn');
+    const loggedInStatus = await response.json();
+    if(loggedInStatus.loggedIn){
+        location.replace(loggedInStatus.logoutUrl);
+    } else{
+        location.replace(loggedInStatus.loginUrl);   
     }
 
-    return text;
+}
+
+function start(){
+    checkLogIn();
+    getComments();
 }

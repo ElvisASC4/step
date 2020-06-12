@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
   </head>
 
-  <body onload="getComments()">
+  <body onload="start();">
 
     <ul>
         <li><a class="active logo" href="/">Not a Bachelors finalist</a></li>
@@ -50,6 +50,7 @@
         <div id="flower-image-container">
             <img class="" id="flower-image" src="">
         </div>
+        <button onclick="goToLogInPage();">Click here to log in or out</button>
         <form id="my-form" method="POST" enctype="multipart/form-data">
             <p>Leave me a comment if you're brave &#128121:</p>
             <textarea name="text-input"></textarea>

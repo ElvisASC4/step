@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,10 +51,12 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     public class Message {
         private String comment;
         private String imageUrl;
+        private String email = "Unkonwn";
 
         public Message(String comment, String imageUrl) {
             this.comment = comment;
             this.imageUrl = imageUrl;
+            this.email = email;
         }
     }
 
@@ -66,7 +69,9 @@ DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
             String text = (String) entity.getProperty("text");
             String imageUrl = (String) entity.getProperty("imageUrl");
             Message newMessage = new Message(text, imageUrl);
-
+            // RequestDispatcher rd = request.getRequestDispatcher("LogInServlet"); 
+            // rd.forward(request, response);
+            //System.out.println(Message.email);
             messagesAndURLs.add(newMessage);
         }
         

@@ -22,43 +22,78 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import javax.servlet.annotation.WebServlet;
+
 
 @WebServlet("/loggedIn")
 public class LogInServlet extends HttpServlet {
 
+        public class LoggedInStatus {
+        private boolean loggedIn;
+        private String email;
+        private String logoutUrl;
+        private String loginUrl;
+
+        public LoggedInStatus(boolean loggedIn) {
+            this.loggedIn = loggedIn;
+            this.email = email;
+            this.loginUrl = loginUrl;
+            this.logoutUrl = logoutUrl;
+        }
+
+        public void setEmail(String email){
+            this.email = email;
+        }
+
+        public void setLogoutUrl(String logoutUrl){
+            this.logoutUrl = logoutUrl;
+        }
+
+        public void setLoginUrl(String loginUrl){
+            this.loginUrl = loginUrl;
+        }
+    }
+
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // response.setContentType("text/html");
 
         UserService userService = UserServiceFactory.getUserService();
         if (userService.isUserLoggedIn()) {
             String userEmail = userService.getCurrentUser().getEmail();
-            String urlToRedirectToAfterUserLogsOut = "/";
+            String urlToRedirectToAfterUserLogsOut = "/index.html";
             String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+            String urlToRedirectToAfterUserLogsIn = "/index.html";
+            String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-            String json = convertToJson(userEmail);
+            System.out.println("<p>Hello " + userEmail + "!</p>");
+            System.out.println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
 
-            // response.getWriter().println("<p>Hello " + userEmail + "!</p>");
-            // response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+            LoggedInStatus loggedIn = new LoggedInStatus(true);
+            loggedIn.setEmail(userEmail);
+            loggedIn.setLogoutUrl(logoutUrl);
+            loggedIn.setLoginUrl(loginUrl);
+
+            String json = convertToJson(loggedIn);
             response.setContentType("application/json;");
             response.getWriter().println(json);
         } else {
-            String urlToRedirectToAfterUserLogsIn = "/";
+            String urlToRedirectToAfterUserLogsIn = "/index.html";
             String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
 
-            // response.getWriter().println("<p>Hello stranger.</p>");
-            // response.getWriter().println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
+            System.out.println("<p>Hello stranger.</p>");
+            System.out.println("<p>Login <a href=\"" + loginUrl + "\">here</a>.</p>");
 
-            String json = convertToJson("null");
+            LoggedInStatus loggedIn = new LoggedInStatus(false);
+            loggedIn.setLoginUrl(loginUrl);
 
-            // response.getWriter().println("<p>Hello " + userEmail + "!</p>");
-            // response.getWriter().println("<p>Logout <a href=\"" + logoutUrl + "\">here</a>.</p>");
+            String json = convertToJson(loggedIn);
             response.setContentType("application/json;");
             response.getWriter().println(json);
         }
     }
 
-        private String convertToJson(String comment) {
+        private String convertToJson(LoggedInStatus comment) {
             Gson gson = new Gson();
             String json = gson.toJson(comment);
             return json;
