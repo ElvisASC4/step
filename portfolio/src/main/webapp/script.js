@@ -72,12 +72,22 @@ async function getComments() {
     const text = await response.json();
     for (const currentText of text) {
         const newText = document.createElement('p');
-        newText.innerHTML = currentText;
+        if(currentText.email != null){
+            newText.innerHTML = currentText.email + " : " + currentText.comment;
+        }else{
+            newText.innerHTML = "Unknown : " + currentText.comment;
+        }
         cutieTextContainer.appendChild(newText);
+        if(currentText.imageUrl != null){
+            const newImage = new Image();
+            newImage.src = currentText.imageUrl;
+            cutieTextContainer.appendChild(newImage);
+        }
+
     }
 }
 
-function fetchBlobstoreUrl() {
+function fetchBlobstoreUrl() {    
   fetch('/blobstore-upload-url')
       .then((response) => {
         return response.text();
@@ -86,4 +96,35 @@ function fetchBlobstoreUrl() {
         const messageForm = document.getElementById('my-form');
         messageForm.action = imageUploadUrl;
       });
+}
+
+async function checkLogIn(){
+    const formContainer = document.getElementById('my-form');
+    const loggedInStatus = await fetchUserInfo();
+    if(loggedInStatus.loggedIn){
+        formContainer.style.display = "block";
+    }else{
+        formContainer.style.display = "none";
+    }
+}
+
+async function fetchUserInfo(){
+    const response = await fetch('/loggedIn');
+    const loggedInStatus = await response.json();
+    return loggedInStatus;
+}
+
+async function goToLogInPage(){
+    const loggedInStatus = await fetchUserInfo();
+    if(loggedInStatus.loggedIn){
+        location.replace(loggedInStatus.logoutUrl);
+    } else{
+        location.replace(loggedInStatus.loginUrl);   
+    }
+
+}
+
+function start(){
+    checkLogIn();
+    getComments();
 }
