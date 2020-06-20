@@ -39,59 +39,54 @@ public final class FindMeetingQuery {
         ArrayList<TimeRange> unbookedTimes = new ArrayList();
         int earliestFreeTime = TimeRange.START_OF_DAY;
         int latestEndTime = TimeRange.END_OF_DAY;
-        TimeRange wholeday = TimeRange.WHOLE_DAY;
-
+        Event previousEvent = events.iterator().next();
         for(Event event: events){
             int startEvent = event.getWhen().start();
             int endEvent = event.getWhen().end();
-            //REDUNDANT??
-            bookedTimes.add(TimeRange.fromStartEnd(startEvent, endEvent, true));
+            if(event.getWhen().overlaps(previousEvent.getWhen())){
+                TimeRange combined = combine(event, previousEvent);
+                bookedTimes.add(TimeRange.fromStartEnd(combined.start(), combined.end(), false));
+            }else{
+                bookedTimes.add(TimeRange.fromStartEnd(startEvent, endEvent, false));
+            }
+            previousEvent = event;
         }
 
-        //How to sort bookedTimes by start time? --- Are we assuming they are allready ordered, seems like it
         for(TimeRange bookedTime: bookedTimes){
-            System.out.println(bookedTime + " /////////////////////////////////////////");
             if(earliestFreeTime < latestEndTime){
-                if(earliestFreeTime == bookedTime.start()){ // In case earlisest tiime is the start of day
+                if(earliestFreeTime == bookedTime.start()){ // In case earliest time is the start of day
                     earliestFreeTime = bookedTime.end();
-                }else{ 
-                    unbookedTimes.add(TimeRange.fromStartEnd(earliestFreeTime, bookedTime.start(), false));
-                    earliestFreeTime = bookedTime.end();
+                }else{
+                    if(earliestFreeTime < bookedTime.start()){ // In case double booked
+                        unbookedTimes.add(TimeRange.fromStartEnd(earliestFreeTime, bookedTime.start(), false));
+                        earliestFreeTime = bookedTime.end();
+                    }
                 }
             
-                //use .Equals()?
-                if(bookedTime == bookedTimes.get(bookedTimes.size() - 1)){
-                    System.out.println("ENTERED IF STATEMENT !!!!!!!!!!!!!!!");
+                if(bookedTime == bookedTimes.get(bookedTimes.size() - 1) && earliestFreeTime != latestEndTime + 1){
                     unbookedTimes.add(TimeRange.fromStartEnd(earliestFreeTime, latestEndTime, true));
                 }
             }
         }
 
-        for(TimeRange openSpace: unbookedTimes){
-            System.out.println(openSpace + "????????????????????????");
+        //In case freeTimes not long enough for requested events
+        if(unbookedTimes.size() == 1 && unbookedTimes.get(0).duration() < request.getDuration()){ 
+            unbookedTimes.remove(0);
+            return unbookedTimes;
+        }else{
+            return unbookedTimes;
         }
-        return unbookedTimes;
+    } 
+
+    if(events.isEmpty() == true && request.getAttendees().isEmpty() == false){
+        return Arrays.asList(TimeRange.WHOLE_DAY);
     }
-
-    //split day into before and after meeting time for 1 event
-    if(events.isEmpty() == false){
-        for(Event event: events){
-            int startEvent = event.getWhen().start();
-            int endEvent = event.getWhen().end();
-
-            return Arrays.asList(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, startEvent, false),
-                TimeRange.fromStartEnd(endEvent, TimeRange.END_OF_DAY, true));
-        }
-    }
-
     return null;
+  }
 
-
-    //request.getAttendees();
-    //request.getDuration();
-
-   // events.getAttendees();
-    //events.getWhen(); // TimeRange obj.start(), obj.duration(), obj.end(), obj.overlaps()
-
+  public TimeRange combine(Event event, Event event2){
+      int duration = (event.getWhen().start() - event2.getWhen().start()) + event.getWhen().duration();
+      TimeRange combined = new TimeRange(event2.getWhen().start(), duration);
+      return combined;
   }
 }
